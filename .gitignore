@@ -1,0 +1,67 @@
+# Unreal Engine 5 .gitignore
+
+# Intermediate files
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+
+# Logs
+*.log
+
+# Crash reports
+CrashReportClient/
+
+# Debugging symbols
+*.pdb
+
+# Temporary files
+*.tmp
+*.bak
+
+# Editor-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project-specific files (optional, depending on workflow)
+# If you are using Git LFS for large assets, you might not ignore these
+# but rather track them with LFS.
+# Content/
+# Plugins/
+
+# Visual Studio files
+*.VC.db
+*.VC.opendb
+*.VC.sdf
+*.VC.suo
+*.VC.user
+*.VC.vcxproj.user
+*.VC.vcxproj.filters
+*.sln.docstates
+*.vssscc
+*.vspscc
+*.opensdf
+*.intellisense.vc.pdb
+
+# Rider files
+.idea/
+
+# macOS specific
+.AppleDouble
+.LSOverride
+
+# Linux specific
+*.o
+*.so
+*.a
+
+# Windows specific
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp

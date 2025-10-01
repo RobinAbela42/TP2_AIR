@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "InputActionValue.h"
 #include "PacMan.generated.h"
 
 UCLASS()
@@ -25,5 +26,24 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* BoxCollision;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* StaticMesh;
+protected:
+	UPROPERTY(EditAnywhere, Category="EnhancedInput")
+	class UInputMappingContext* InputMappingContext;
+	
+	UPROPERTY(EditAnywhere, Category="EnhancedInput")
+	class UInputAction* MoveAction;
+	
+	void MoveInput(const FInputActionValue& Value);
+
+	FVector DesiredDirection = FVector(0,0,0);
+
+	UPROPERTY(EditAnywhere, Category="Speed")
+	float Speed=5000;
 
 };

@@ -18,5 +18,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Score = 0;
 
-	void AddScore();
+	void  AddScore();
 };

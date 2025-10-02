@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Components/BoxComponent.h"
+#include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
 APacMan::APacMan()
@@ -19,8 +20,8 @@ APacMan::APacMan()
 	// Create StaticMeshComponent and Attach to BoxComponent
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMesh->SetupAttachment(BoxCollision);
-	
 
+	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>("PawnMovement");
 }
 
 // Called when the game starts or when spawned
@@ -34,10 +35,8 @@ void APacMan::BeginPlay()
 void APacMan::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	AddMovementInput(DesiredDirection);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Moving to : %s"), *DesiredDirection.ToString()));
-
 	
+	AddMovementInput(DesiredDirection);
 
 }
 

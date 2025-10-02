@@ -32,6 +32,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* StaticMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UFloatingPawnMovement* FloatingPawnMovement;
+	
 protected:
 	UPROPERTY(EditAnywhere, Category="EnhancedInput")
 	class UInputMappingContext* InputMappingContext;

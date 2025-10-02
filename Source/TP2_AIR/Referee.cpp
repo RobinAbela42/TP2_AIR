@@ -3,11 +3,6 @@
 
 #include "Referee.h"
 
-UReferee::UReferee()
-{
-	
-}
-
 void UReferee::AddScore()
 {
 	Score +=1;

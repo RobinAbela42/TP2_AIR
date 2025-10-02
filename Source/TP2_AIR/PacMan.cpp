@@ -6,15 +6,16 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Components/BoxComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
 // Sets default values
 APacMan::APacMan()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	// Create BoxComponent and set as RootComponent for the Actor
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>("BoxCollision");
+	BoxCollision = CreateDefaultSubobject<UCapsuleComponent>("BoxCollision");
 	RootComponent = BoxCollision;
 
 	// Create StaticMeshComponent and Attach to BoxComponent
@@ -28,16 +29,14 @@ APacMan::APacMan()
 void APacMan::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void APacMan::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	AddMovementInput(DesiredDirection);
 
+	AddMovementInput(DesiredDirection);
 }
 
 // Called to bind functionality to input
@@ -45,9 +44,10 @@ void APacMan::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	if ( APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
-		if ( UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(InputMappingContext, 0);
 		}
@@ -55,19 +55,20 @@ void APacMan::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	if (UEnhancedInputComponent* Input = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		Input->BindAction(MoveAction, ETriggerEvent::Started, this, &APacMan::MoveInput);
+		Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APacMan::MoveInput);
 	}
-	
-
 }
 
-void APacMan::MoveInput(const FInputActionValue& Value )
+void APacMan::MoveInput(const FInputActionValue& Value)
 {
 	FVector2D MovementVector = Value.Get<FVector2D>();
-	
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString::Printf(TEXT("vector %s"), *MovementVector.ToString()));
 
-	DesiredDirection = FVector(MovementVector.X, MovementVector.Y, 0);
-	
-
+	if (MovementVector.X)
+	{
+		DesiredDirection = FVector(MovementVector.X, 0, 0);
+	}
+	else if (MovementVector.Y)
+	{
+		DesiredDirection = FVector(0, MovementVector.Y, 0);
+	}
 }

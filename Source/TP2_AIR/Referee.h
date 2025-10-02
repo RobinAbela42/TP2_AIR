@@ -14,9 +14,8 @@ class TP2_AIR_API UReferee : public UGameInstance
 {
 	GENERATED_BODY()
 
-
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Score = 0;
 
 	void AddScore();

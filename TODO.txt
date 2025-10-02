@@ -1,0 +1,9 @@
+## Features
+
+capstule collider (or sphere) to pacman
+
+## UI
+
+score / life
+
+## Miscellanous

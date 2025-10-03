@@ -42,12 +42,15 @@ void ACoin::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-
-	UGameInstance* GI = UGameplayStatics::GetGameInstance(GetWorld());
-	if (UReferee* Ref = Cast<UReferee>(GI))
+	if (OtherActor->Tags.Contains("Pacman"))
 	{
-		Ref->AddScore();
+			
+		UGameInstance* GI = UGameplayStatics::GetGameInstance(GetWorld());
+		if (UReferee* Ref = Cast<UReferee>(GI))
+		{
+			Ref->AddScore();
+		}
+		Destroy();
 	}
-	Destroy();
 }
 

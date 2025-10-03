@@ -15,20 +15,24 @@ APacMan::APacMan()
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	// Create BoxComponent and set as RootComponent for the Actor
-	BoxCollision = CreateDefaultSubobject<UCapsuleComponent>("BoxCollision");
-	RootComponent = BoxCollision;
+	CapsuleCollision = CreateDefaultSubobject<UCapsuleComponent>("BoxCollision");
+	RootComponent = CapsuleCollision;
 
 	// Create StaticMeshComponent and Attach to BoxComponent
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	StaticMesh->SetupAttachment(BoxCollision);
+	StaticMesh->SetupAttachment(CapsuleCollision);
 
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>("PawnMovement");
+
+
 }
 
 // Called when the game starts or when spawned
 void APacMan::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Tags.Add("Pacman");
 }
 
 // Called every frame
